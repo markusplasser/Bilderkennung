@@ -3,9 +3,9 @@ package org.example;
 public class NeuralNet{
     private Layer inputLayer;
     private final int inputSize;
-    private int hiddenSize;
-    private Layer[] hiddenLayers;
-    private Layer outputLayer;
+    private final int hiddenSize;
+    private final Layer[] hiddenLayers;
+    private final Layer outputLayer;
     private final int outPutsize;
 
     public NeuralNet(int inputSize, int hiddenSize, int outPutsize, int ... hiddenlayerSizes) {
