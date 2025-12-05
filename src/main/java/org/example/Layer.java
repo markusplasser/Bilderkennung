@@ -12,10 +12,18 @@ public class Layer {
         instantiateNeurons();
     }
 
+    public Layer(double[] inputs, int layerSize){
+        this.prevLayerSize = inputs.length;
+        this.layerSize = layerSize;
+        neurons = new Neuron[layerSize];
+        instantiateNeurons();
+        openPrivLayer(inputs);
+    }
+
 
     private void instantiateNeurons(){
-        for (Neuron neuron: neurons){
-            neuron = new Neuron(prevLayerSize);
+        for (int i = 0; i< layerSize; i ++){
+            neurons[i] = new Neuron(prevLayerSize);
         }
     }
 
@@ -27,9 +35,15 @@ public class Layer {
         return output;
     }
 
+    private void openPrivLayer(double[] inputs){
+        for (Neuron neuron: neurons){
+            neuron.calculateOutput(inputs);
+        }
+    }
+
 
     public void calcLayer(Layer l){
-        for (int i = 0; i < prevLayerSize; i++){
+        for (int i = 0; i < layerSize; i++){
             Neuron neuron = neurons[i];
             neuron.calculateOutput(l.formatOutputs());
         }
