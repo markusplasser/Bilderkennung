@@ -20,6 +20,27 @@ public class NeuralNet{
         instantiateHiddenLayers(hiddenlayerSizes);
     }
 
+    /***
+     *
+     * @param data pass data with size inputSize
+     * @param control pass the values at the end so with outputSize
+     * @return returns the mean_error between the two sets;
+     */
+    public double meanSquaredError(double[] data, double[] control){
+        setData(data);
+        calculateOutput();
+        double[] transformedData = outputLayer.formatOutputs();
+        double meanSquaredE = 0;
+        double errorGrad;
+        for (int i = 0; i < outPutsize; i++){
+            meanSquaredE += Math.pow((transformedData[i] - control[i]), 2);
+            errorGrad = (double) 2/outPutsize * (transformedData[i] - control[i]);
+            outputLayer.neurons[i].errorGrad = errorGrad;
+        }
+        meanSquaredE /= outPutsize;
+        return meanSquaredE;
+    }
+
     private void instantiateHiddenLayers(int[] sizes){
         hiddenLayers[0] = new Layer(inputSize, sizes[0]);
         for (int i = 1; i < hiddenSize; i++){
